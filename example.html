@@ -12,6 +12,7 @@
 				font-size: 5em;
 				text-anchor: middle;
 				alignment-baseline: middle;
+				fill: white;
 			}
 			.clock {
 				fill: white;
@@ -117,7 +118,7 @@
 
 			// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
 			var length = numbers.push(
-				{ "class": ["clock", "inanimate"], "node": [0,0,0] }
+				{ "class": ["clock", "inanimate"], "node": [0,0,0.25] }
 			);
 
 			// Create text SVG element. The boolean 'true' specifies that it is initially hidden.

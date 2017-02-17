@@ -111,6 +111,7 @@ function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
 		// Z-axis opacity
 		tag.element.css("opacity", (z*2+5/2)/3);
 
+		// Re-stack the tags if a sort is pending.
 		if (sortPending) {
 			sortTags();
 			sortPending = false;
@@ -175,9 +176,6 @@ function makeTagCloudSVG(cloud) {
 	// Generate node-coordinates for every tag and add these to cloud[i].node .
 	addNodesToTags(cloud);
 
-	// Hide the TagCloudSVG until all tags are in place.
-	$('#tagcloudsvg').css('visibility', 'none');
-
 	// Iterate cloud tags and make nodes and SVG elements.
 	for (var i = 0; i < cloud.length; i++) {
 		addTextToSVG(cloud[i]);
@@ -185,9 +183,6 @@ function makeTagCloudSVG(cloud) {
 
 	// Initial placement, perspective and projection of tags.
 	rotateAndZoom(cloud,0,0,0,0);
-
-	// Show the TagCloudSVG now all tags are in place.
-	$('#tagcloudsvg').css('visibility', 'none');
 
 	// Periodically re-order the stacking of elements according to new perspective.
 	setInterval(
