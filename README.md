@@ -42,7 +42,7 @@ These are the necessary steps to build a TagCloudSVG.
 ```
   <script>
     function animate() {
-      rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
+      rotateAndZoom(0.01,0.008,0.005,0.01);
     }
   </script>
 ```
@@ -138,7 +138,7 @@ These are the necessary steps to build a TagCloudSVG.
       ];
 
       function animate() {
-        rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
+        rotateAndZoom(0.01,0.008,0.005,0.01);
       }
 
       makeTagCloudSVG(clouds);
