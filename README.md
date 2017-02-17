@@ -9,7 +9,9 @@ The **example.html** file provides a good implementation example.
 These are the necessary steps to build a TagCloudSVG.
 
 * Call the jQuery script from you webpage:
-
+```
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+```
 * Call the tagcloudsvg.js script from you webpage:
 ```
   <script src="tagcloudsvg/tagcloudsvg.js" type="text/javascript"></script>
