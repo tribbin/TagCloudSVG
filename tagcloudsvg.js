@@ -117,28 +117,39 @@ function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
 		}
 
 	}
+
 }
 
 // Sort tags and stack SVG text elements accordingly for correct rendering.
 function sortTags() {
-	var sortedElements = $('svg#tagcloudsvg text.tag').sort(
+
+	var sortedElements = $('#tagcloudsvg text.tag').sort(
 		function(a, b) {
 			// Use defined opacity; not the computer-calculated opacity.
 			return $(a).get(0).style.opacity > $(b).get(0).style.opacity;
 		}
 	);
-	$('svg#tagcloudsvg').html("");
-	$('svg#tagcloudsvg').append(sortedElements);
+
+	// Remove all tags' text-elements.
+	$('#tagcloudsvg').html("");
+
+	// Insert the ordered list of tags' text-elements.
+	$('#tagcloudsvg').append(sortedElements);
+
 }
 
 // Add single SVG text element representing a tag to SVG representing the cloud.
-function addTextToSVG(tag) {
+function addTextToSVG(tag, hide = false) {
 
 	// Insert element and update DOM.
-	$('svg#tagcloudsvg').append(document.createElementNS("http://www.w3.org/2000/svg","text"));
+	$('#tagcloudsvg').append(document.createElementNS("http://www.w3.org/2000/svg","text"));
 
 	// Add the element to the tag in JSON.
-	tag.element = $('svg#tagcloudsvg text').last();
+	tag.element = $('#tagcloudsvg text').last();
+
+	if (hide) {
+		tag.element.css('visibility', 'hidden').css('opacity','0');
+	}
 
 	// Add label of the tag as HTML text.
 	tag.element.html(tag.label ? tag.label : "");
@@ -155,18 +166,28 @@ function addTextToSVG(tag) {
 
 	// Add default 'tag' class to all tag elements.
 	tag.element.addClass('tag');
+
 }
 
 // Make tagcloud SVG
 function makeTagCloudSVG(cloud) {
 
-	// Generate node-coordinates for every tag and add these to cloud[i].node
+	// Generate node-coordinates for every tag and add these to cloud[i].node .
 	addNodesToTags(cloud);
+
+	// Hide the TagCloudSVG until all tags are in place.
+	$('#tagcloudsvg').css('visibility', 'none');
 
 	// Iterate cloud tags and make nodes and SVG elements.
 	for (var i = 0; i < cloud.length; i++) {
 		addTextToSVG(cloud[i]);
 	}
+
+	// Initial placement, perspective and projection of tags.
+	rotateAndZoom(cloud,0,0,0,0);
+
+	// Show the TagCloudSVG now all tags are in place.
+	$('#tagcloudsvg').css('visibility', 'none');
 
 	// Periodically re-order the stacking of elements according to new perspective.
 	setInterval(
@@ -174,6 +195,7 @@ function makeTagCloudSVG(cloud) {
 			sortPending = true;
 		}
 	,sortInterval);
+
 }
 
 /* ===================================================================

@@ -117,19 +117,25 @@
 
 			// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
 			var length = numbers.push(
-				{ "label": getClockTime(), "class": ["clock", "inanimate"], "node": [0,0,0] }
+				{ "class": ["clock", "inanimate"], "node": [0,0,0] }
 			);
 
-			// Create text SVG element.
-			addTextToSVG(numbers[length-1]);
+			// Create text SVG element. The boolean 'true' specifies that it is initially hidden.
+			addTextToSVG(numbers[length-1], true);
 
 			// Change the text of the clock tag.
 			function updateClock() {
 				$('.clock').html(getClockTime());
 			}
 
-			// Do this every 1000ms.
+			// Do this once ...
+			updateClock();
+
+			// And repeat every 1000ms.
 			setInterval(updateClock, 1000);
+
+			// The clock's time is set. The opacity is set to 0 by addTextToSVG(..,true) and will be corrected after positioning by rotateAndZoom().
+			$('.clock').css('visibility','visible');
 
 		</script>
 
