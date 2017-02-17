@@ -1,10 +1,10 @@
-=TagCloudSVG=
+#TagCloudSVG
 
-==Example.html==
+##Example.html
 
 The **example.html** file provides a good implementation example.
 
-==Step-by-step==
+##Step-by-step
 
 These are the necessary steps to build an TagCloudSVG.
 
