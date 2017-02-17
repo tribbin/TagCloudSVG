@@ -28,13 +28,16 @@ var rotx = roty = rotz = 0;
 // Every sortInterval the sortPending will be set to true.
 var sortPending = true;
 
+// For easy access.
+var cloud;
+
 /* ===================================================================
    Code under this line are working functions.
    There should be no need to alter this code.
    =================================================================== */
 
 // Add cloud[i].node to JSON data with [x,y,z] coordinates array.
-function addNodesToTags(cloud) {
+function addNodesToTags() {
 
 	// Create semi-equally spread nodes on a sphere for every tag in the cloud.
 	var nodes = PointsOnSphere(cloud.length);
@@ -75,7 +78,7 @@ function getPerspective(node) {
 // Alter the perspective and projection of the SVG nodes.
 // dx, dy, dz and dzoom are deltas.
 // Math.sin(zoom) is used for X-axis translation.
-function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
+function rotateAndZoom(dx,dy,dz,dzoom) {
 
 	rotx += dx;
 	roty += dy;
@@ -132,11 +135,8 @@ function sortTags() {
 		}
 	);
 
-	// Remove all tags' text-elements.
-	$('#tagcloudsvg').html("");
-
-	// Insert the ordered list of tags' text-elements.
-	$('#tagcloudsvg').append(sortedElements);
+	// Remove all tags' text-elements and replace with ordered list.
+	$('#tagcloudsvg').html(sortedElements);
 
 }
 
@@ -172,10 +172,12 @@ function addTextToSVG(tag, hide = false) {
 }
 
 // Make tagcloud SVG
-function makeTagCloudSVG(cloud) {
+function makeTagCloudSVG(input) {
+
+	cloud = input;
 
 	// Generate node-coordinates for every tag and add these to cloud[i].node .
-	addNodesToTags(cloud);
+	addNodesToTags();
 
 	// Iterate cloud tags and make nodes and SVG elements.
 	for (var i = 0; i < cloud.length; i++) {
@@ -183,7 +185,7 @@ function makeTagCloudSVG(cloud) {
 	}
 
 	// Initial placement, perspective and projection of tags.
-	rotateAndZoom(cloud,0,0,0,0);
+	rotateAndZoom(0,0,0,0);
 
 	// Periodically re-order the stacking of elements according to new perspective.
 	setInterval(
