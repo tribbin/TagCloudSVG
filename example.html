@@ -54,8 +54,7 @@
 		<script>
 
 			// Example tagcloud data.
-			var data = {
-				"numbers": [
+			var numbers = [
 					{ "label": "1", "class": ["C1","C7"] },
 					{ "label": "2", "class": ["C1"] },
 					{ "label": "3", "class": ["C1"] },
@@ -86,15 +85,14 @@
 					{ "label": "28", "class": ["C6"] },
 					{ "label": "29", "class": ["C6"] },
 					{ "label": "30", "class": ["C6"] },
-    				]
-			}
+    			];
 
 			// Create SVG elements in HTML.
-			makeTagCloudSVG(data.numbers);
+			makeTagCloudSVG(numbers);
 
 			// Rotate and zoom 1-step.
 			function animate() {
-				rotateAndZoom(data.numbers,0.01,0.008,0.005,0.01);
+				rotateAndZoom(numbers,0.01,0.008,0.005,0.01);
 			}
 
 			// Call animate() function with interval.
@@ -109,13 +107,13 @@
 				return hours+':'+minutes+':'+seconds;
 			}
 
-			// Add ananimate clock tag.
-			var length = data.numbers.push(
+			// Add ananimate clock tag with 'node' array for X, Y and Z coordinates.
+			var length = numbers.push(
 				{ "label": getClockTime(), "class": ["clock", "inanimate"], "node": [0,0,0] }
 			);
 
 			// Create text SVG element.
-			addTextToSVG(data.numbers[length-1]);
+			addTextToSVG(numbers[length-1]);
 
 			// Change the text of the clock.
 			function updateClock() {
