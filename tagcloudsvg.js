@@ -3,11 +3,21 @@
    =================================================================== */
 
 /* ===================================================================
-   Code under this line are initial drawing and perspective values.
+   Code under this line are configuration variables.
    =================================================================== */
+
+// Targeted number of frames per second for rendering.
+var fps = 30;
 
 // SVG cloud size (width & height) reference for projecting nodes.
 var boundry = 1080;
+
+// The interval in milliseconds for re-stacking the text elements.
+var sortInterval = 1000;
+
+/* ===================================================================
+   Code under this line are global drawing and perspective values.
+   =================================================================== */
 
 // Initial Math.sin(zoom) Z-axis translation value.
 var zoom = 0;
@@ -15,10 +25,7 @@ var zoom = 0;
 // Initial SVG node perspective variables; X, Y and Z rotation.
 var rotx = roty = rotz = 0;
 
-// The interval in milliseconds for re-stacking the text elements.
-var sortInterval = 1000;
-
-// Check if a sort is pending.
+// Every sortInterval the sortPending will be set to true.
 var sortPending = true;
 
 /* ===================================================================
@@ -111,12 +118,6 @@ function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
 		// Z-axis opacity
 		tag.element.css("opacity", (z*2+5/2)/3);
 
-		// Re-stack the tags if a sort is pending.
-		if (sortPending) {
-			sortTags();
-			sortPending = false;
-		}
-
 	}
 
 }
@@ -191,6 +192,18 @@ function makeTagCloudSVG(cloud) {
 		}
 	,sortInterval);
 
+	setInterval(nextFrame,1000/fps);
+
+}
+
+// Render next frame.
+function nextFrame() {
+	// Browser-optimization for rendering without delay (stutter) from sortTags().
+	requestAnimationFrame(animate);
+	if(sortPending) {
+		sortTags();
+		sortPending = false;
+	}
 }
 
 /* ===================================================================
