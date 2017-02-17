@@ -16,7 +16,7 @@ var zoom = 0;
 var rotx = roty = rotz = 0;
 
 // The interval in milliseconds for re-stacking the text elements.
-var sortInterval = 3000;
+var sortInterval = 1000;
 
 // Check if a sort is pending.
 var sortPending = true;
