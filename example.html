@@ -12,7 +12,13 @@
 				visibility: hidden;
 			}
 			text {
-				font-size: 3em;
+				font-size: 5em;
+				text-anchor: middle;
+				alignment-baseline: middle;
+			}
+			.clock {
+				fill: white;
+				font-size: 10em;
 			}
 			.C1 {
 				fill: red;
@@ -93,6 +99,32 @@
 
 			// Call animate() function with interval.
 			setInterval(animate, 1000/20);
+
+			// Simple function to get the time in human-readable form.
+			function getClockTime() {
+				var now = new Date();
+				var hours = (now.getHours() < 10 ? "0":"") + now.getHours();
+				var minutes = (now.getMinutes() < 10 ? "0":"") + now.getMinutes();
+				var seconds = (now.getSeconds() < 10 ? "0":"") + now.getSeconds();
+				return hours+':'+minutes+':'+seconds;
+			}
+
+			// Add ananimate clock tag.
+			var length = data.numbers.push(
+				{ "label": getClockTime(), "class": ["clock", "inanimate"], "node": [0,0,0] }
+			);
+
+			// Create text SVG element.
+			addTextToSVG(data.numbers[length-1]);
+
+			// Change the text of the clock.
+			function updateClock() {
+				$('.clock').html(getClockTime());
+			}
+
+			// Do this every 1000ms.
+			setInterval(updateClock, 1000);
+
 		</script>
 
 	</body>

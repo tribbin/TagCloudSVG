@@ -15,6 +15,12 @@ var zoom = 0;
 // Initial SVG node perspective variables; X, Y and Z rotation.
 var rotx = roty = rotz = 0;
 
+// The interval in milliseconds for re-stacking the text elements.
+var sortInterval = 3000;
+
+// Check if a sort is pending.
+var sortPending = true;
+
 /* ===================================================================
    Code under this line are working functions.
    There should be no need to alter this code.
@@ -74,12 +80,23 @@ function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
 	for (var i = 0; i < cloud.length; i++) {
 
 		var tag = cloud[i];
-		var tagPerspective = getPerspective(tag.node);
+		var x = y = z = 0;
 
-		// Short variable names for easier reading.
-		var x = tagPerspective[0];
-		var y = tagPerspective[1];
-		var z = tagPerspective[2];
+		// Tags with 'inanimate' tag will not change perspective.
+		if (tag.class.indexOf('inanimate') > -1) {
+			x = tag.node[0];
+			y = tag.node[1];
+			z = tag.node[2];
+		} else {
+
+			var tagPerspective = getPerspective(tag.node);
+
+			// Short variable names for easier reading.
+			x = tagPerspective[0];
+			y = tagPerspective[1];
+			z = tagPerspective[2];
+
+		}
 
 		// Convert z range [-1 ... 1] to custom perspective scaling between [0 ... 1].
 		var scaling = 1+z/3;
@@ -94,21 +111,24 @@ function rotateAndZoom(cloud,dx,dy,dz,dzoom) {
 		// Z-axis opacity
 		tag.element.css("opacity", (z*2+5/2)/3);
 
+		if (sortPending) {
+			sortTags();
+			sortPending = false;
+		}
+
 	}
-
-	// Re-order the stacking of elements according to new perspective.
-	sortTags();
-
 }
 
 // Sort tags and stack SVG text elements accordingly for correct rendering.
 function sortTags() {
-	$('svg#tagcloudsvg text.tag').sort(
+	var sortedElements = $('svg#tagcloudsvg text.tag').sort(
 		function(a, b) {
 			// Use defined opacity; not the computer-calculated opacity.
 			return $(a).get(0).style.opacity > $(b).get(0).style.opacity;
 		}
 	);
+	$('svg#tagcloudsvg').html("");
+	$('svg#tagcloudsvg').append(sortedElements);
 }
 
 // Add single SVG text element representing a tag to SVG representing the cloud.
@@ -141,6 +161,12 @@ function makeTagCloudSVG(cloud) {
 		addTextToSVG(cloud[i]);
 	}
 
+	// Periodically re-order the stacking of elements according to new perspective.
+	setInterval(
+		function () {
+			sortPending = true;
+		}
+	,sortInterval);
 }
 
 /* ===================================================================
