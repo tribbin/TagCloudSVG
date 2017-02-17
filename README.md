@@ -141,13 +141,13 @@ These are the necessary steps to build a TagCloudSVG.
         { "label": "Stratus", "class": ["low"] },
       ];
 
-    makeTagCloudSVG(clouds);
+      makeTagCloudSVG(clouds);
 
-    function animate() {
-      rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
-    }
+      function animate() {
+        rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
+      }
 
-    setInterval(animate, 1000/20);
+      setInterval(animate, 1000/20);
 
     </script>
   </body>
