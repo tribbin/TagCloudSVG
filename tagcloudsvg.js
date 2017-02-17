@@ -141,13 +141,20 @@ function addTextToSVG(tag) {
 	tag.element = $('svg#tagcloudsvg text').last();
 
 	// Add label of the tag as HTML text.
-	tag.element.html(tag.label);
+	tag.element.html(tag.label ? tag.label : "");
 
 	// Add all classes defined in JSON to the tag's SVG element.
-	for (var i=0; i < tag.class.length; i++) {
-		tag.element.addClass("tag");
-		tag.element.addClass(tag.class[i]);
+	if (tag.class) {
+		for (var i=0; i < tag.class.length; i++) {
+			tag.element.addClass(tag.class[i]);
+		}
+	} else {
+		// If tag.class does not exist in JSON, add empty Array for proper working of code.
+		tag.class = [];
 	}
+
+	// Add default 'tag' class to all tag elements.
+	tag.element.addClass('tag');
 }
 
 // Make tagcloud SVG
