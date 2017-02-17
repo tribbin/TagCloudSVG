@@ -105,7 +105,7 @@
 				return hours+':'+minutes+':'+seconds;
 			}
 
-			// Add ananimate clock tag with 'node' array for X, Y and Z coordinates.
+			// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
 			var length = numbers.push(
 				{ "label": getClockTime(), "class": ["clock", "inanimate"], "node": [0,0,0] }
 			);
@@ -113,7 +113,7 @@
 			// Create text SVG element.
 			addTextToSVG(numbers[length-1]);
 
-			// Change the text of the clock.
+			// Change the text of the clock tag.
 			function updateClock() {
 				$('.clock').html(getClockTime());
 			}
