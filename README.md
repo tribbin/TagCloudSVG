@@ -45,7 +45,6 @@ These are the necessary steps to build a TagCloudSVG.
 * Write a function that is being called for every animation-frame:
 ```
   <script>
-    makeTagCloudSVG(clouds);
     function animate() {
       rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
     }
@@ -54,45 +53,38 @@ These are the necessary steps to build a TagCloudSVG.
 * Add interval to repeatedly call this script:
 ```
   <script>
-    makeTagCloudSVG(clouds);
-    function animate() {
-      rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
-    }
     setInterval(animate, 1000/20);
   </script>
 ```
 * Use CSS to style the cloud and tags:
 ```
-  <html>
-    <head>
-      <style>
-        #tagcloudsvg {
-          background-color: black;
-        }
+  <style>
+      #tagcloudsvg {
+        background-color: black;
+      }
 
-        .tag {
-          font-size: 4em;
-        }
+      .tag {
+        font-size: 4em;
+      }
 
-        .high {
-          fill: white;
-        }
+      .high {
+        fill: white;
+      }
 
-        .middle {
-          fill: blue;
-        }
+      .middle {
+        fill: blue;
+      }
 
-        .vertical {
-          fill: darkblue;
-        }
+      .vertical {
+        fill: darkblue;
+      }
 
-        .low {
-          fill: grey;
-        }
-      </style>
-    </head>
+      .low {
+        fill: grey;
+      }
+    </style>
 ```
-==Everything combined==
+##Everything combined
 ```
 <!DOCTYPE html>
 <html>
