@@ -84,7 +84,7 @@ These are the necessary steps to build an TagCloudSVG.
         }
 
         .low {
-          fille: black;
+          fill: black;
         }
       </style>
     </head>
