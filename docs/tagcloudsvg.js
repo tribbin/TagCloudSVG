@@ -84,7 +84,7 @@ function getPerspective(node) {
 	perspective[1] = tmpx[0]*Math.sin(rotz) + tmpx[1]*Math.cos(rotz);
 
 	// Translate Z-axis (zoom)
-	perspective[2] = (Math.sin(zoom)/4) + tmpx[2];
+	perspective[2] = (Math.sin(zoom)/5) + tmpx[2];
 
 	return perspective;
 }
