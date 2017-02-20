@@ -32,10 +32,13 @@ var sortPending = true;
 var lastAnimate = 0;
 
 /* ===================================================================
-   Code under this line are for fast access to data.
+   Code under this line is for fast access to data and elements.
    =================================================================== */
 
-// For easy access.
+// TagCloudSVG.
+var svg;
+
+// JSON..
 var cloud;
 
 
@@ -125,10 +128,10 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 		var py = y*scaling*(boundry/2)+1080/2;
 
 		// X & Y projection coordinate translation and Z projection scaling of tag
-		tag.element.attr("transform", "translate(" + px + "," + py + "), scale(" + scaling + ")" );
+		tag.element.setAttribute("transform", "translate(" + px + "," + py + "), scale(" + scaling + ")" );
 
 		// Z-axis opacity
-		tag.element.css("opacity", (z*2+5/2)/3);
+		tag.element.style.opacity = (z*2+5/2)/3;
 
 	}
 
@@ -137,39 +140,48 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 // Sort tags and stack SVG text elements accordingly for correct rendering.
 function sortTags() {
 
-	var sortedElements = $('#tagcloudsvg text.tag').sort(
+	// Get all tags.
+	var tags = Array.prototype.slice.call(document.getElementsByClassName('tag'));
+
+	// Sort all tags.
+	tags.sort(
 		function(a, b) {
 			// Use defined opacity; not the computer-calculated opacity.
-			return $(a).get(0).style.opacity > $(b).get(0).style.opacity;
+			return a.style.opacity > b.style.opacity;
 		}
 	);
 
-	// Remove all tags' text-elements and replace with ordered list.
-	$('#tagcloudsvg').html(sortedElements);
+	// Re-Append all tags.
+	for (var i=0; i<tags.length; i++) {
+		// Remove all tags' text-elements and replace with ordered list.
+		var svg = document.getElementById('tagcloudsvg');
+		svg.appendChild(tags[i]);
+	}
 
 }
 
 // Add single SVG text element representing a tag to SVG representing the cloud.
 function addTextToSVG(tag, hide = false) {
 
-	// Insert element and update DOM.
-	$('#tagcloudsvg').append(document.createElementNS("http://www.w3.org/2000/svg","text"));
+	// Store globally for fast access.
+	svg = document.getElementById('tagcloudsvg');
 
-	// Add the element to the tag in JSON.
-	tag.element = $('#tagcloudsvg text').last();
+	// Insert element and update DOM.
+	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","text"));
 
 	// Optional hiding of element to avoid it from popping up in the corder at position x=0, y=0.
 	if (hide) {
-		tag.element.css('visibility', 'hidden').css('opacity','0');
+		tag.element.style.visibility = 'hidden';
+		tag.element.style.opacity = 0;
 	}
 
 	// Add label of the tag as HTML text.
-	tag.element.html(tag.label ? tag.label : "");
+	tag.element.innerHTML = (tag.label ? tag.label : "");
 
 	// Add all classes defined in JSON to the tag's SVG element.
 	if (tag.class) {
 		for (var i=0; i < tag.class.length; i++) {
-			tag.element.addClass(tag.class[i]);
+			tag.element.classList.add(tag.class[i]);
 		}
 	} else {
 		// If tag.class does not exist in JSON, add empty Array for proper working of code.
@@ -177,7 +189,7 @@ function addTextToSVG(tag, hide = false) {
 	}
 
 	// Add default 'tag' class to all tag elements.
-	tag.element.addClass('tag');
+	tag.element.classList.add('tag');
 
 }
 
