@@ -38,24 +38,18 @@ These are the necessary steps to build a TagCloudSVG.
     ];
   </script>
 ```
+* Write a function called animate() with no arguments that is being called for every animation-frame:
+```
+  <script>
+    function animate() {
+      rotateAndZoom(0.01,0.008,0.005,0.01);
+    }
+  </script>
+```
 * Provide this JSON when calling makeTagCloudSVG():
 ```
   <script>
     makeTagCloudSVG(clouds);
-  </script>
-```
-* Write a function that is being called for every animation-frame:
-```
-  <script>
-    function animate() {
-      rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
-    }
-  </script>
-```
-* Add interval to repeatedly call this script:
-```
-  <script>
-    setInterval(animate, 1000/20);
   </script>
 ```
 * Use CSS to style the cloud and tags:
@@ -143,13 +137,11 @@ These are the necessary steps to build a TagCloudSVG.
         { "label": "Stratus", "class": ["low"] },
       ];
 
-      makeTagCloudSVG(clouds);
-
       function animate() {
-        rotateAndZoom(clouds,0.01,0.008,0.005,0.01);
+        rotateAndZoom(0.01,0.008,0.005,0.01);
       }
 
-      setInterval(animate, 1000/20);
+      makeTagCloudSVG(clouds);
 
     </script>
   </body>
