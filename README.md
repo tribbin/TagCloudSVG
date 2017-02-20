@@ -1,66 +1,12 @@
-# Demonstration
-
-<style>
-    svg#tagcloudsvg {
-        background-color: black;
-    }
-
-    .tag {
-        font-size: 4em;
-    }
-
-    .high {
-        fill: white;
-    }
-
-    .middle {
-        fill: blue;
-    }
-
-    .vertical {
-        fill: darkblue;
-    }
-
-    .low {
-        fill: grey;
-    }
-</style>
-
-<script src="tagcloudsvg.js" type="text/javascript"></script>
-
-<svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
-
-<script>
-
-    var clouds = [
-        { "label": "Cirrus", "class": [ "high" ] },
-        { "label": "Cirrocumulus", "class": ["high"] },
-        { "label": "Cirrostratus", "class": ["high"] },
-        { "label": "Altocumulus", "class": ["middle"] },
-        { "label": "Altostratus", "class": ["middle"] },
-        { "label": "Cumulonimbus", "class": ["vertical"] },
-        { "label": "Cumulus", "class": ["vertical"] },
-        { "label": "Nimbostratus", "class": ["vertical"] },
-        { "label": "Stratocumulus", "class": ["low"] },
-        { "label": "Small Cu", "class": ["low"] },
-        { "label": "Stratus", "class": ["low"] },
-    ];
-
-    function animate() {
-        rotateAndZoom(0.01,0.008,0.005,0.01);
-    }
-
-    makeTagCloudSVG(clouds);
-
-</script>
-
 ## Example.html
 
-The **example.html** file provides a good implementation example.
+The **[example.html](example.html)** file provides a good implementation example.
 
 ## Step-by-step
 
 These are the necessary steps to build a TagCloudSVG.
+
+* Download [TagCloudSVG](tagcloudsvg.js) and put it in the directory of your webpage.
 
 * Call the tagcloudsvg.js script from your webpage:
 ```html
