@@ -28,17 +28,18 @@ var rotx = roty = rotz = 0;
 // Every sortInterval the sortPending will be set to true.
 var sortPending = true;
 
-// Keep track of laast animate()-call for FPS timing.
+// This variable will be updated to Date.now() before every rendered
+// frame for timing a constant frame-rate.
 var lastAnimate = 0;
 
 /* ===================================================================
    Code under this line is for fast access to data and elements.
    =================================================================== */
 
-// TagCloudSVG.
+// TagCloudSVG DOM-element.
 var svg;
 
-// JSON..
+// TagCloud JSON-data.
 var cloud;
 
 
@@ -47,19 +48,21 @@ var cloud;
    There should be no need to alter this code.
    =================================================================== */
 
-// Add cloud[i].node to JSON data with [x,y,z] coordinates array.
+// Add 'node' array with [x,y,z] coordinates to all tags in JSON data.
 function addNodesToTags() {
 
-	// Create semi-equally spread nodes on a sphere for every tag in the cloud.
-	var nodes = PointsOnSphere(cloud.length);
+	// Create semi-equally spread points on a sphere for all tags in the cloud.
+	var points = PointsOnSphere(cloud.length);
 
+	// Bind these points as node-coordinates to the tags.
 	for (var i = 0; i < cloud.length; i++) {
-		cloud[i].node = nodes[i];
+		cloud[i].node = points[i];
 	}
 
 }
 
-// Return the rotated and zoomed perspective coordinates for a node.
+// Return the rotated (rotx, roty, rotz) and zoomed (zoom) perspective coordinates for a node.
+// A node is an array of tree coordinates: [x,y,z].
 function getPerspective(node) {
 
 	var tmpy = [];
@@ -87,8 +90,10 @@ function getPerspective(node) {
 }
 
 // Alter the perspective and projection of the SVG nodes.
-// dx, dy, dz and dzoom are deltas.
+// The dx, dy, dz and dzoom parameters are deltas.
 // Math.sin(zoom) is used for X-axis translation.
+// A full 'wobble' with zoom: 2*Math.PI
+// A full rotation around an axis: 2*Math.PI
 function rotateAndZoom(dx,dy,dz,dzoom) {
 
 	rotx += dx;
@@ -97,23 +102,26 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 
 	zoom += dzoom;
 
-	// Reposition SVG nodes.
+	// Reposition the tags' SVG text-nodes.
 	for (var i = 0; i < cloud.length; i++) {
 
 		var tag = cloud[i];
+
 		var x = y = z = 0;
 
-		// Tags with 'inanimate' tag will not change perspective.
+		// Tags with 'inanimate' tag will never change perspective.
 		if (tag.class.indexOf('inanimate') > -1) {
+
 			x = tag.node[0];
 			y = tag.node[1];
 			z = tag.node[2];
+
 		} else {
 
 			// Get the tag's coordinates, corrected for X,Y & Z-axis rotation and zoom.
 			var tagPerspective = getPerspective(tag.node);
 
-			// Short variable names for easier reading.
+			// Short variable names for easier reading of formulas.
 			x = tagPerspective[0];
 			y = tagPerspective[1];
 			z = tagPerspective[2];
@@ -123,27 +131,27 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 		// Convert z range [-1 ... 1] to custom perspective scaling between [0 ... 1].
 		var scaling = 1+z/3;
 
-		// Projected 2D coordinates
+		// Projected 2D coordinates.
 		var px = x*scaling*(boundry/2)+1920/2;
 		var py = y*scaling*(boundry/2)+1080/2;
 
-		// X & Y projection coordinate translation and Z projection scaling of tag
+		// X & Y projection coordinate translation and Z projection scaling of tag.
 		tag.element.setAttribute("transform", "translate(" + px + "," + py + "), scale(" + scaling + ")" );
 
-		// Z-axis opacity
+		// Change opacity based on distance (projected Z-axis).
 		tag.element.style.opacity = (z*2+5/2)/3;
 
 	}
 
 }
 
-// Sort tags and stack SVG text elements accordingly for correct rendering.
+// Sort the tags' SVG text-elements and restack them for correctly rendering overlapping tags.
 function sortTags() {
 
-	// Get all tags.
+	// Get the tags' SVG text-elements.
 	var tags = Array.prototype.slice.call(document.getElementsByClassName('tag'));
 
-	// Sort all tags.
+	// Sort them by opacity; the opacity is in direct relation with the perspective's Z-axis distance.
 	tags.sort(
 		function(a, b) {
 			// Use defined opacity; not the computer-calculated opacity.
@@ -151,20 +159,15 @@ function sortTags() {
 		}
 	);
 
-	// Re-Append all tags.
+	// Re-append the tags' SVG text-elements in order. Appended DOM-nodes are not copied, but moved.
 	for (var i=0; i<tags.length; i++) {
-		// Remove all tags' text-elements and replace with ordered list.
-		var svg = document.getElementById('tagcloudsvg');
 		svg.appendChild(tags[i]);
 	}
 
 }
 
-// Add single SVG text element representing a tag to SVG representing the cloud.
+// This function adds a single SVG text-element (representing a tag) to the SVG (representing the cloud).
 function addTextToSVG(tag, hide = false) {
-
-	// Store globally for fast access.
-	svg = document.getElementById('tagcloudsvg');
 
 	// Insert element and update DOM.
 	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","text"));
@@ -196,37 +199,39 @@ function addTextToSVG(tag, hide = false) {
 // Make tagcloud SVG
 function makeTagCloudSVG(input) {
 
+	// Global variable name for JSON-data for fast access.
 	cloud = input;
 
-	// Generate node-coordinates for every tag and add these to cloud[i].node .
+	// Global variable name for SVG-element for fast access.
+	svg = document.getElementById('tagcloudsvg');
+
+	// Generate node-coordinates for every tag and add these to the tags' JSON-data.
 	addNodesToTags();
 
-	// Iterate cloud tags and make nodes and SVG elements.
+	// Create SVG text-elements for all tags.
 	for (var i = 0; i < cloud.length; i++) {
 		addTextToSVG(cloud[i]);
 	}
 
-	// Initial placement, perspective and projection of tags.
-	rotateAndZoom(0,0,0,0);
-
-	// Periodically re-order the stacking of elements according to new perspective.
+	// Periodically call for re-ordering of the SVG text-elements to avoid rendering-mistakes of overlapping text.
 	setInterval(
 		function () {
 			sortPending = true;
 		}
 	,sortInterval);
 
-	// Start infinite render-loop.
+	// Start infinite loop.
 	nextFrame();
 
 }
 
 // Render next frame.
 function nextFrame() {
-	// Browser-optimization for rendering without delay (stutter) from sortTags().
+
+	// This is a special function-name to inform the browser that a frame is being rendered for fluid timing.
 	requestAnimationFrame(nextFrame);
 
-	// See how long ago animate() is called last.
+	// Calculate how long ago animate() is called last.
 	var now = Date.now();
 	var delta = now - lastAnimate;
 
@@ -241,6 +246,7 @@ function nextFrame() {
 		sortTags();
 		sortPending = false;
 	}
+
 }
 
 /* ===================================================================
