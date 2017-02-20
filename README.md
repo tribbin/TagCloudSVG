@@ -71,7 +71,7 @@ These are the necessary steps to build a TagCloudSVG.
   <svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
 ```
 * Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (an array!) will be set as the tag's CSS classes.
-```json
+```html
   <script>
     var clouds = [
         { "label": "Cirrus", "class": [ "high" ] },
@@ -89,7 +89,7 @@ These are the necessary steps to build a TagCloudSVG.
   </script>
 ```
 * Write a function called animate() with no arguments that is being called for every animation-frame:
-```javascript
+```html
   <script>
     function animate() {
       rotateAndZoom(0.01,0.008,0.005,0.01);
@@ -97,13 +97,13 @@ These are the necessary steps to build a TagCloudSVG.
   </script>
 ```
 * Provide the JSON when calling makeTagCloudSVG():
-```javascript
+```html
   <script>
     makeTagCloudSVG(clouds);
   </script>
 ```
 * Optionally use CSS to style the cloud and tags:
-```css
+```html
   <style>
       #tagcloudsvg {
         background-color: black;
