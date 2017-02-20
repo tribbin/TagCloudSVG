@@ -28,8 +28,16 @@ var rotx = roty = rotz = 0;
 // Every sortInterval the sortPending will be set to true.
 var sortPending = true;
 
+// Keep track of laast animate()-call for FPS timing.
+var lastAnimate = 0;
+
+/* ===================================================================
+   Code under this line are for fast access to data.
+   =================================================================== */
+
 // For easy access.
 var cloud;
+
 
 /* ===================================================================
    Code under this line are working functions.
@@ -99,6 +107,7 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 			z = tag.node[2];
 		} else {
 
+			// Get the tag's coordinates, corrected for X,Y & Z-axis rotation and zoom.
 			var tagPerspective = getPerspective(tag.node);
 
 			// Short variable names for easier reading.
@@ -149,6 +158,7 @@ function addTextToSVG(tag, hide = false) {
 	// Add the element to the tag in JSON.
 	tag.element = $('#tagcloudsvg text').last();
 
+	// Optional hiding of element to avoid it from popping up in the corder at position x=0, y=0.
 	if (hide) {
 		tag.element.css('visibility', 'hidden').css('opacity','0');
 	}
@@ -194,14 +204,27 @@ function makeTagCloudSVG(input) {
 		}
 	,sortInterval);
 
-	setInterval(nextFrame,1000/fps);
+	// Start infinite render-loop.
+	nextFrame();
 
 }
 
 // Render next frame.
 function nextFrame() {
 	// Browser-optimization for rendering without delay (stutter) from sortTags().
-	requestAnimationFrame(animate);
+	requestAnimationFrame(nextFrame);
+
+	// See how long ago animate() is called last.
+	var now = Date.now();
+	var delta = now - lastAnimate;
+
+	// Limit rendering to fps frames-per-second.
+	if (delta > 1000/fps) {
+		lastAnimate = now - (delta % 1000/fps);
+		animate();
+	}
+
+	// Sort the SVG DOM-elements according to perspective Z-axis.
 	if(sortPending) {
 		sortTags();
 		sortPending = false;
