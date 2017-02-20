@@ -1,6 +1,30 @@
-# TagCloudSVG
+# TagCloudSVG - A modern and customizable TagCloud using SVG.
 
-A modern and customizable TagCloud using SVG.
+  <style>
+      svg#tagcloudsvg {
+        background-color: black;
+      }
+
+      .tag {
+        font-size: 4em;
+      }
+
+      .high {
+        fill: white;
+      }
+
+      .middle {
+        fill: blue;
+      }
+
+      .vertical {
+        fill: darkblue;
+      }
+
+      .low {
+        fill: grey;
+      }
+    </style>
 
 <script src="tagcloudsvg.js" type="text/javascript"></script>
 
