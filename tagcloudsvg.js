@@ -12,6 +12,9 @@ var fps = 30;
 // SVG cloud size (width & height) reference for projecting nodes.
 var boundry = 1080;
 
+// Fixed SVG font-size for stepless scaling.
+var tagFontSize = 80;
+
 // The interval in milliseconds for re-stacking the text elements.
 var sortInterval = 1000;
 
@@ -193,6 +196,7 @@ function addTextToSVG(tag, hide = false) {
 
 	// Add default 'tag' class to all tag elements.
 	tag.element.classList.add('tag');
+	tag.element.setAttribute('font-size', tagFontSize);
 
 }
 
