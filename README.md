@@ -1,6 +1,4 @@
-# TagCloudSVG v1
-
-A modern and customizable TagCloud using SVG.
+# Demonstration
 
 <style>
     svg#tagcloudsvg {
