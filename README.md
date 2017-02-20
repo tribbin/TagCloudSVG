@@ -8,10 +8,6 @@ The **example.html** file provides a good implementation example.
 
 These are the necessary steps to build a TagCloudSVG.
 
-* Call the jQuery script from your webpage:
-```
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-```
 * Call the tagcloudsvg.js script from your webpage:
 ```
   <script src="tagcloudsvg.js" type="text/javascript"></script>
@@ -20,7 +16,7 @@ These are the necessary steps to build a TagCloudSVG.
 ```
   <svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
 ```
-* Build a JSON with an array. Every entry has at least a label and an array of classes.
+* Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (, which must be an array!) will be set as the tag's CSS classes.
 ```
   <script>
     var clouds = [
@@ -52,7 +48,7 @@ These are the necessary steps to build a TagCloudSVG.
     makeTagCloudSVG(clouds);
   </script>
 ```
-* Use CSS to style the cloud and tags:
+* Optionally use CSS to style the cloud and tags:
 ```
   <style>
       #tagcloudsvg {
@@ -114,8 +110,6 @@ These are the necessary steps to build a TagCloudSVG.
     </style>
   </head>
   <body>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <script src="tagcloudsvg.js" type="text/javascript"></script>
 
