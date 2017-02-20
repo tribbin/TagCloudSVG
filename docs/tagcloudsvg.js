@@ -172,7 +172,7 @@ function sortTags() {
 // This function adds a single SVG text-element (representing a tag) to the SVG (representing the cloud).
 function addTextToSVG(tag, hide = false) {
 
-	// Insert element and update DOM.
+	// Insert text-element and update DOM.
 	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","text"));
 
 	// Optional hiding of element to avoid it from popping up in the corder at position x=0, y=0.
@@ -189,6 +189,28 @@ function addTextToSVG(tag, hide = false) {
 		for (var i=0; i < tag.class.length; i++) {
 			tag.element.classList.add(tag.class[i]);
 		}
+
+		// Check if the tag has a link
+		if (tag.link) {
+
+			// Create anchor-element.
+			var anchor = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","a"));
+
+			// Set link reference.
+			anchor.setAttribute('href',tag.link);
+
+			// Move 'tag' class from text-element to a-element.
+			tag.element.classList.remove('tag');
+			anchor.classList.add('tag');
+
+			// Wrap anchor-element around text-element.
+			svg.replaceChild(anchor,tag.element);
+			anchor.appendChild(tag.element);
+
+			// The anchor-element is now the tag's main element.
+			tag.element = anchor;
+		}
+
 	} else {
 		// If tag.class does not exist in JSON, add empty Array for proper working of code.
 		tag.class = [];
