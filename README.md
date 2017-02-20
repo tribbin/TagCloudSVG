@@ -1,10 +1,12 @@
 ## Example.html
 
-The **example.html** file provides a good implementation example.
+The **[example.html](example.html)** file provides a good implementation example.
 
 ## Step-by-step
 
 These are the necessary steps to build a TagCloudSVG.
+
+* Download [TagCloudSVG](tagcloudsvg.js) and put it in the directory of your webpage.
 
 * Call the tagcloudsvg.js script from your webpage:
 ```html
