@@ -3,41 +3,87 @@
 	<head>
 		<title>Example TagCloudSVG</title>
 		<meta charset="UTF-8">
+		<link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans:700|Share+Tech+Mono" rel="stylesheet">
 		<style>
 			body {
-				width: 900px;
+				color: hsl(180,10%,95%);
+				background-color: hsl(180,10%,30%);
+				font-family: 'Lato', sans-serif;
+				font-size: 1.4em;
+				font-weight: 400;
+				text-align: center;
+				margin-bottom: 50px;
+			}
+			h1 {
+				font-family: 'Share Tech Mono', monospace;
+				font-size: 4em;
+				margin-bottom: 0px;
+			}
+			h2 {
+				margin-top: 0px;
+				margin-bottom: 0.2em;
+			}
+			h3 {
+				font-size: 1em;
+			}
+			a {
+				margin-top: 200px;
+			}
+			code, pre, a {
+				background-color: hsla(180,10%,0%,0.2);
+				color: hsl(60,40%,65%);
+				font-family: 'Share Tech Mono', monospace;
+				padding: 5px;
+				border-radius: 5px;
+				border: 2px solid hsl(60,40%,65%);
+				width: 800px;
 				margin: auto;
+				text-align: left;
+				text-decoration: none;
 			}
 			#tagcloudsvg {
-				background: black;
+				display: block;
+				width: 800px;
+				background-color: hsla(180,10%,0%,0.2);
+				border-radius: 20px;
+				border: 8px solid hsl(60,40%,65%);
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 30px;
+				margin-bottom: 30px;
+				font-size: 0.8em;
+				overflow: hidden;
 			}
 			.tag {
+				font-family: 'Share Tech Mono', monospace;
 				font-size: 5em;
 				text-anchor: middle;
 				alignment-baseline: middle;
 				fill: white;
+				font-weight: 700;
 			}
 			.clock {
 				fill: white;
+				font-family: 'Share Tech Mono', monospace;
 				font-size: 10em;
 			}
 			.C1 {
-				fill: red;
+				fill: hsl(0,40%,65%);
 			}
 			.C2 {
-				fill: green;
+				fill: hsl(60,40%,65%);
 			}
 			.C3 {
-				fill: blue;
+				fill: hsl(120,40%,65%);
 			}
 			.C4 {
-				fill: yellow;
+				fill: hsl(180,40%,65%);
 			}
 			.C5 {
-				fill: purple;
+				fill: hsl(240,40%,65%);
 			}
 			.C6 {
-				fill: white;
+				fill: hsl(300,40%,65%);
 			}
 			.C7 {
 				font-weight: bold;
@@ -46,26 +92,19 @@
 		</style>
 	</head>
 	<body>
-		<h1>Demonstration:</h1>
+
+		<h1>TagCloudSVG</h1>
+
+		A modern and highly customizable TagCloud using SVG
 
 		<script src='tagcloudsvg.js' type='text/javascript'></script>
 
-		<svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
+		<svg id='tagcloudsvg' viewbox='0 -200 1920 1480'></svg>
 
 		<script>
 
 			// Example tagcloud data.
 			var numbers = [
-					// Empty entry for testing:
-					{},
-
-					// Labelless entry for testing:
-					{ "class": ["C0"] },
-
-					// Classless entry for testing:
-					{ "label": "0" },
-
-					// Regular entries for demonstration:
 					{ "label": "1", "class": ["C1","C7"] },
 					{ "label": "2", "class": ["C1"] },
 					{ "label": "3", "class": ["C1"] },
@@ -138,6 +177,8 @@
 			document.getElementsByClassName('clock')[0].style.visibility = 'visible';
 
 		</script>
+
+		<a href="https://github.com/tribbin/TagCloudSVG">Download via GitHub!</a>
 
 	</body>
 </html>
