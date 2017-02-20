@@ -1,6 +1,6 @@
 #TagCloudSVG
 
-A modern and customizable TagCloud using SVG and JSON.
+A modern and customizable TagCloud using SVG.
 
 ##Example.html
 
