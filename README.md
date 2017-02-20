@@ -1,12 +1,12 @@
-#TagCloudSVG
+# TagCloudSVG
 
 A modern and customizable TagCloud using SVG.
 
-##Example.html
+## Example.html
 
 The **example.html** file provides a good implementation example.
 
-##Step-by-step
+## Step-by-step
 
 These are the necessary steps to build a TagCloudSVG.
 
@@ -78,9 +78,8 @@ These are the necessary steps to build a TagCloudSVG.
       }
     </style>
 ```
-##Everything combined
-```
-<!DOCTYPE html>
+## Everything combined
+```<!DOCTYPE html>
 <html>
   <head>
     <style>
