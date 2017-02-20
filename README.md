@@ -1,5 +1,7 @@
 #TagCloudSVG
 
+A modern and customizable TagCloud using SVG and JSON.
+
 ##Example.html
 
 The **example.html** file provides a good implementation example.
