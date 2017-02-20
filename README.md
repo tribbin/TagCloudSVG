@@ -18,7 +18,7 @@ These are the necessary steps to build a TagCloudSVG.
 ```
   <svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
 ```
-* Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (, which must be an array!) will be set as the tag's CSS classes.
+* Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (an array!) will be set as the tag's CSS classes.
 ```
   <script>
     var clouds = [
@@ -44,7 +44,7 @@ These are the necessary steps to build a TagCloudSVG.
     }
   </script>
 ```
-* Provide this JSON when calling makeTagCloudSVG():
+* Provide the JSON when calling makeTagCloudSVG():
 ```
   <script>
     makeTagCloudSVG(clouds);
