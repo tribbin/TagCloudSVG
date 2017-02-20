@@ -80,12 +80,8 @@ These are the necessary steps to build a TagCloudSVG.
 ```
 ## Everything combined
 ```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
 
-      #tagcloudsvg {
+      svg#tagcloudsvg {
         background-color: black;
       }
 
