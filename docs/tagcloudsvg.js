@@ -9,8 +9,8 @@
 // Targeted number of frames per second for rendering.
 var fps = 30;
 
-// SVG cloud size (width & height) reference for projecting nodes.
-var boundry = 1080;
+// SVG cloud size (radius from center) reference for projecting nodes.
+var boundry = 540;
 
 // Fixed SVG font-size for stepless scaling.
 var tagFontSize = 80;
@@ -135,8 +135,8 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 		var scaling = 1+z/3;
 
 		// Projected 2D coordinates.
-		var px = x*scaling*(boundry/2)+1920/2;
-		var py = y*scaling*(boundry/2)+1080/2;
+		var px = x*scaling*boundry;
+		var py = y*scaling*boundry;
 
 		// X & Y projection coordinate translation and Z projection scaling of tag.
 		tag.element.setAttribute("transform", "translate(" + px + "," + py + "), scale(" + scaling + ")" );
@@ -237,6 +237,14 @@ function makeTagCloudSVG(input) {
 
 	// Global variable name for SVG-element for fast access.
 	svg = document.getElementById('tagcloudsvg');
+
+	// Set XML NameSpace to SVG standard.
+	svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+
+	// If no SVG viewbox is set, it will be set.
+	if (!svg.hasAttribute('viewbox')) {
+		svg.setAttribute('viewbox', '-960 -540 1920 1080');
+	}
 
 	// Generate node-coordinates for every tag and add these to the tags' JSON-data.
 	addNodesToTags();
