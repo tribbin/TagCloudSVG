@@ -88,7 +88,7 @@ TagCloudSVG is built with flexibility in mind, but a few rules apply.
 * The class property, if present, *must* be an array.
 * The class 'tag' is reserved and must not be used.
 * Any object-property is optional; in the following code the value of 'cloud' is considered completely valid and must be accepted as input by TagCloudSVG:
-```
+```javascript
 var cloud = [
 	{ "id": "" },
 	{ "label": "", id: "clock", class: [] },
