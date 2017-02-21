@@ -102,6 +102,8 @@ var cloud = [
 ];
 ```
 ### Built-in features
+Every tag's element will be given the 'tag' class.
+Every tag will be given the 'element' property, which is the tag's element.
 #### "label": "value"
 The label property will set the text inside your SVG text-element.
 #### "id": "value"
