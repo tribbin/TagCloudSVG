@@ -4,7 +4,7 @@ The **[example.html](example.html)** file provides a good implementation example
 
 ## Demonstration
 
-You may take a peek: [https://tribbin.github.io/TagCloudSVG/]
+You may take a peek: [https://tribbin.github.io/TagCloudSVG/](https://tribbin.github.io/TagCloudSVG/)
 
 ## Step-by-step
 
