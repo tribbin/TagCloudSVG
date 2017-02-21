@@ -88,8 +88,9 @@ TagCloudSVG is built with flexibility in mind, but a few rules apply.
 
 * The cloud-data is an array of objects.
 * The object-property 'element' is reserved and must not be used.
-* The object-properties 'id', 'class', 'label', 'node' and 'link' must only be used for their documented purpose.
+* The object-properties 'id', 'class', 'label', 'node', 'link' and 'attributes' must only be used for their documented purpose.
 * The class property, if present, *must* be an array.
+* The attributes propery, if present, *must* be an array of properties.
 * The class 'tag' is reserved and must not be used.
 * Any object-property is optional; in the following code the value of 'cloud' is considered completely valid and must be accepted as input by TagCloudSVG:
 ```javascript
@@ -131,7 +132,11 @@ var cloud = [
 * Without a pre-defined 'node' property, the tag will be given a coordination-node in the cloud.
 * If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
 
-#### (Not yet implemented) "type": "value"
+#### "type": "value"
 
 * Without a pre-defined 'type' property, there will be created an SVG Text-element for the tag.
 * You can pre-define a different SVG Element-type; like rect, ellipse, svg, image, ...
+
+#### "attributes": [{"property": "value"},{"property": "value"}, ... ]
+
+* The array of properties will be set as element-attributes with the corresponding values.
