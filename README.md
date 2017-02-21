@@ -101,3 +101,6 @@ var cloud = [
 	{ "label": "", id: "clock", class: [ "inanimate", "large"], node: [0,0,0] },
 ];
 ```
+### Functionality
+
+... In-depth documentation will be here soon.
