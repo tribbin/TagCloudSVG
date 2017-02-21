@@ -16,9 +16,9 @@ These are the necessary steps to build a TagCloudSVG.
 ```html
   <script src="tagcloudsvg.js" type="text/javascript"></script>
 ```
-* Include an SVG-element in the body of your webpage with ID 'tagcloudsvg' with a viewbox of '0 0 1920 1080':
+* Include an SVG-element in the body of your webpage with ID 'tagcloudsvg':
 ```html
-  <svg id='tagcloudsvg' viewbox='0 0 1920 1080'></svg>
+  <svg id='tagcloudsvg'></svg>
 ```
 * Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (an array!) will be set as the tag's CSS classes.
 ```html
