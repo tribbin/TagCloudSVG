@@ -14,7 +14,7 @@ These are the necessary steps to build a TagCloudSVG.
 
 * Call the tagcloudsvg.js script from your webpage:
 ```html
-  <script src="tagcloudsvg.js" type="text/javascript"></script>
+  <script src='tagcloudsvg.js' type='text/javascript'></script>
 ```
 * Include an SVG-element in the body of your webpage with ID 'tagcloudsvg':
 ```html

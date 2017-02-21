@@ -173,7 +173,7 @@ function sortTags() {
 function addTextToSVG(tag, hide = false) {
 
 	// Insert text-element and update DOM.
-	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","text"));
+	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", tag.type ? tag.type : "text"));
 
 	// Optional hiding of element to avoid it from popping up in the corder at position x=0, y=0.
 	if (hide) {
@@ -242,8 +242,8 @@ function makeTagCloudSVG(input) {
 	svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
 
 	// If no SVG viewbox is set, it will be set.
-	if (!svg.hasAttribute('viewbox')) {
-		svg.setAttribute('viewbox', '-960 -540 1920 1080');
+	if (!svg.hasAttribute('viewBox')) {
+		svg.setAttribute('viewBox', '-960 -540 1920 1080');
 	}
 
 	// Generate node-coordinates for every tag and add these to the tags' JSON-data.
