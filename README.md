@@ -96,10 +96,10 @@ TagCloudSVG is built with flexibility in mind, but a few rules apply.
 ```javascript
 var cloud = [
 	{ "id": "" },
-	{ "label": "", id: "clock", class: [] },
+	{ "label": "", "id": "clock", "class": [] },
 	{},
 	{ "link": "http://example.com/" },
-	{ "label": "", id: "clock", class: [ "inanimate", "large"], node: [0,0,0] },
+	{ "type": "ellipse", "attributes": [{"cx": 0},{"cy": 0},{"rx": 100},{"ry": 50}], "id": "ellipe", "class": [ "inanimate", "large"], "node": [0,0,0] },
 ];
 ```
 ### Built-in features
