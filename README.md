@@ -102,17 +102,18 @@ var cloud = [
 ];
 ```
 ### Built-in features
-Every tag's element will be given the 'tag' class.
-Every tag will be given the 'element' property, which is the tag's element.
+* Every tag's element will be given the 'tag' class.
+* Every tag will be given the 'element' property, which is the tag's element.
 #### "label": "value"
-The label property will set the text inside your SVG text-element.
+* The label property will set the text inside your SVG text-element.
 #### "id": "value"
-The id property will set the tag's CSS unique identity.
+* The id property will set the tag's CSS unique identity.
 #### "link": "http://example.com/"
-The link property wraps a clickable link around your tag to the specified URL.
+* The link property wraps a clickable link around your tag to the specified URL.
 #### "class": ["value","value", ... ]
-The class array will set the tag's CSS classes.
+* The class array will set the tag's CSS classes.
 ##### "class": ["inanimate"]
-The inanimate class will fix the position and size of the tag.
+* The inanimate class will fix the position and size of the tag.
 #### (Not yet implemented) "node": [x,y,z]
-Without the 'node' property, the tag will be given a node on the cloud. If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
+* Without a pre-defined 'node' property, the tag will be given a coordination-node in the cloud.
+* If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
