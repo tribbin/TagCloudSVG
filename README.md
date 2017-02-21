@@ -82,14 +82,11 @@ TagCloudSVG is built with flexibility in mind, but a few rules apply.
 
 ### Core rules
 
-* The cloud-data is an array of ojects.
-
-* The property 'element' is reserved and must not be used.
-* The properties 'id', 'class', 'label', 'node' and 'link' must only be used for their documented purpose.
-
+* The cloud-data is an array of objects.
+* The object-property 'element' is reserved and must not be used.
+* The object-properties 'id', 'class', 'label', 'node' and 'link' must only be used for their documented purpose.
 * The class property, if present, *must* be an array.
 * The class 'tag' is reserved and must not be used.
-
 * Any object-property is optional; in the following code the value of 'cloud' is considered completely valid and must be accepted as input by TagCloudSVG:
 ```
 var cloud = [
