@@ -2,6 +2,10 @@
 
 The **[example.html](example.html)** file provides a good implementation example.
 
+## Demonstration
+
+You may take a peek: [https://tribbin.github.io/TagCloudSVG/]
+
 ## Step-by-step
 
 These are the necessary steps to build a TagCloudSVG.
