@@ -139,4 +139,4 @@ var cloud = [
 
 #### "attributes": [{"property": "value"},{"property": "value"}, ... ]
 
-* The array of properties will be set as element-attributes with the corresponding values.
+* The array of properties will be set as element-attributes with their corresponding values.
