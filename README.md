@@ -130,3 +130,8 @@ var cloud = [
 
 * Without a pre-defined 'node' property, the tag will be given a coordination-node in the cloud.
 * If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
+
+#### (Not yet implemented) "type": "value"
+
+* Without a pre-defined 'type' property, there will be created an SVG Text-element for the tag.
+* You can pre-define a different SVG Element-type; like rect, ellipse, svg, image, ...
