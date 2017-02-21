@@ -286,19 +286,31 @@ function nextFrame() {
    Code under this line is supporting code to make your life easier.
    =================================================================== */
 
-var getJSON = function(url, callback) {
+// Get JSON from an URL. The callback parameter is optional.
+// The callback-function must have two parameters: error (null if there is no error) and the data (if there is an error).
+// Without a provided callback, the JSON data is returned. If the retrieval fails, null is returned.
+function getJSON(url, callback = null) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function() {
 		if (status == 200) {
-			callback(null, xhr.response);
+			if(callback) {
+				callback(null, xhr.response);
+			} else {
+				return xhr.response;
+			}
 		} else {
-			callback("JSON could not be retrieved.");
+			if(callback) {
+				callback("JSON could not be retrieved.");
+			} else {
+				return null;
+			}
 		}
 	};
 	xhr.onerror = function() {
 		callback("JSON could not be retrieved.");
+		return null;
 	}
 	xhr.send();
 };

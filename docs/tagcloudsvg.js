@@ -283,6 +283,40 @@ function nextFrame() {
 }
 
 /* ===================================================================
+   Code under this line is supporting code to make your life easier.
+   =================================================================== */
+
+// Get JSON from an URL. The callback parameter is optional.
+// The callback-function must have two parameters: error (null if there is no error) and the data (if there is an error).
+// Without a provided callback, the JSON data is returned. If the retrieval fails, null is returned.
+function getJSON(url, callback = null) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.responseType = 'json';
+	xhr.onload = function() {
+		if (status == 200) {
+			if(callback) {
+				callback(null, xhr.response);
+			} else {
+				return xhr.response;
+			}
+		} else {
+			if(callback) {
+				callback("JSON could not be retrieved.");
+			} else {
+				return null;
+			}
+		}
+	};
+	xhr.onerror = function() {
+		callback("JSON could not be retrieved.");
+		return null;
+	}
+	xhr.send();
+};
+
+
+/* ===================================================================
    Code under this line is a piece of altered code from TagCanvas 1.12
    Copyright (C) 2010-2011 Graham Breach
    For more information, please contact <graham@goat1000.com>
