@@ -8,13 +8,20 @@
 				background: black;
 				width: 80%;
 			}
+			.link {
+				fill: purple !important;
+				text-decoration: underline;
+			}
+			.link:hover {
+				fill: white !important;
+			}
 			.tag {
 				text-anchor: middle;
 				alignment-baseline: middle;
 				fill: white;
 				text-rendering: optimizeSpeed;
 			}
-			.clock {
+			#clock {
 				fill: white;
 				font-size: 10em;
 			}
@@ -104,7 +111,7 @@
 
 			// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
 			var length = numbers.push(
-				{ "class": ["clock", "inanimate"], "node": [0,0,0.25] }
+				{ "id": "clock", "class": ["inanimate"], "node": [0,0,0.25] }
 			);
 
 			// Create text SVG element. The boolean 'true' specifies that it is initially hidden.
@@ -112,7 +119,7 @@
 
 			// Change the text of the clock tag.
 			function updateClock() {
-				document.getElementsByClassName('clock')[0].innerHTML = getClockTime();
+				document.getElementById('clock').innerHTML = getClockTime();
 			}
 
 			// Do this once ...
@@ -122,7 +129,7 @@
 			setInterval(updateClock, 1000);
 
 			// The clock's time is set. The opacity is set to 0 by addTextToSVG(..,true) and will be corrected after positioning by rotateAndZoom().
-			document.getElementsByClassName('clock')[0].style.visibility = 'visible';
+			document.getElementById('clock').style.visibility = 'visible';
 
 		</script>
 

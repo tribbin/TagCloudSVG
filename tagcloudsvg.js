@@ -184,33 +184,16 @@ function addTextToSVG(tag, hide = false) {
 	// Add label of the tag as HTML text.
 	tag.element.innerHTML = (tag.label ? tag.label : "");
 
+	// Add ID defined in JSON to the tag's SVG element.
+	if (tag.id) {
+		tag.element.id = tag.id;
+	}
+
 	// Add all classes defined in JSON to the tag's SVG element.
 	if (tag.class) {
 		for (var i=0; i < tag.class.length; i++) {
 			tag.element.classList.add(tag.class[i]);
 		}
-
-		// Check if the tag has a link
-		if (tag.link) {
-
-			// Create anchor-element.
-			var anchor = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","a"));
-
-			// Set link reference.
-			anchor.setAttribute('href',tag.link);
-
-			// Move 'tag' class from text-element to a-element.
-			tag.element.classList.remove('tag');
-			anchor.classList.add('tag');
-
-			// Wrap anchor-element around text-element.
-			svg.replaceChild(anchor,tag.element);
-			anchor.appendChild(tag.element);
-
-			// The anchor-element is now the tag's main element.
-			tag.element = anchor;
-		}
-
 	} else {
 		// If tag.class does not exist in JSON, add empty Array for proper working of code.
 		tag.class = [];
@@ -219,6 +202,30 @@ function addTextToSVG(tag, hide = false) {
 	// Add default 'tag' class to all tag elements.
 	tag.element.classList.add('tag');
 	tag.element.setAttribute('font-size', tagFontSize);
+
+	// Check if the tag has a link
+	if (tag.link) {
+
+		// Create anchor-element.
+		var anchor = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg","a"));
+
+		// Set link reference.
+		anchor.setAttribute('href',tag.link);
+
+		// Set class 'link' for text-element.
+		tag.element.classList.add('link');
+
+		// Move 'tag' class from text-element to a-element.
+		tag.element.classList.remove('tag');
+		anchor.classList.add('tag');
+
+		// Wrap the anchor-element around the text-element.
+		svg.replaceChild(anchor,tag.element);
+		anchor.appendChild(tag.element);
+
+		// The anchor-element is now the tag's main element.
+		tag.element = anchor;
+	}
 
 }
 
