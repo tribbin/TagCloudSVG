@@ -112,5 +112,5 @@ The link property wraps a clickable link around your tag to the specified URL.
 The class array will set the tag's CSS classes.
 ##### "class": ["inanimate"]
 The inanimate class will fix the position and size of the tag.
-#### "node": [x,y,z]
+#### "node": [x,y,z] (not fully implemented, yet)
 Without the 'node' property, the tag will be given a node on the cloud. If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
