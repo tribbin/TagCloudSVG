@@ -103,7 +103,7 @@ var cloud = [
 ```
 ### Built-in features
 
-* Every tag's element will be given the 'tag' class.
+* Every tag's element will be given the 'tag' CSS class.
 * Every tag will be given the 'element' property, which is the tag's element.
 
 #### "label": "value"
