@@ -164,7 +164,7 @@ function sortTags() {
 
 	// Re-append the tags' SVG text-elements in order. Appended DOM-nodes are not copied, but moved.
 	for (var i=0; i<tags.length; i++) {
-		svg.appendChildBefore(tags[i]);
+		svg.appendChild(tags[i]);
 	}
 
 }
@@ -291,13 +291,15 @@ var getJSON = function(url, callback) {
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function() {
-		var status = xhr.status;
 		if (status == 200) {
 			callback(null, xhr.response);
 		} else {
-			callback(status);
+			callback("JSON could not be retrieved.");
 		}
 	};
+	xhr.onerror = function() {
+		callback("JSON could not be retrieved.");
+	}
 	xhr.send();
 };
 
