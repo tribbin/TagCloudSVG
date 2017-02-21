@@ -175,6 +175,15 @@ function addTextToSVG(tag, hide = false) {
 	// Insert text-element and update DOM.
 	tag.element = svg.appendChild(document.createElementNS("http://www.w3.org/2000/svg", tag.type ? tag.type : "text"));
 
+	// Insert pre-defined attributes.
+	if(tag.attributes) {
+		for (var i = 0; i < tag.attributes.length; i++) {
+			for (var property in tag.attributes[i]) {
+				tag.element.setAttribute(property,tag.attributes[i][property]);
+			}
+		}
+	}
+
 	// Optional hiding of element to avoid it from popping up in the corder at position x=0, y=0.
 	if (hide) {
 		tag.element.style.visibility = 'hidden';
