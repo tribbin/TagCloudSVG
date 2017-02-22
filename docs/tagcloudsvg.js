@@ -315,7 +315,7 @@ function getJSON(url, callback = null) {
 			if(callback) {
 				callback(null, xhr.response);
 			} else {
-				return xhr.response;
+				console.log(xhr.response);
 			}
 		} else {
 			if(callback) {
@@ -330,7 +330,7 @@ function getJSON(url, callback = null) {
 		return null;
 	}
 	xhr.send();
-};
+}
 
 
 /* ===================================================================
