@@ -311,17 +311,19 @@ function getJSON(url, callback = null) {
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function() {
-		if (xhr.readyState = 4 && xhr.status == 200) {
-			if(callback) {
-				callback(null, xhr.response);
+		if (xhr.readyState = 4) {
+			if (xhr.status == 200) {
+				if(callback) {
+					callback(null, xhr.response);
+				} else {
+					console.log(xhr.response);
+				}
 			} else {
-				console.log(xhr.response);
-			}
-		} else {
-			if(callback) {
-				callback("JSON could not be retrieved.");
-			} else {
-				return null;
+				if(callback) {
+					callback("JSON could not be retrieved.");
+				} else {
+					return null;
+				}
 			}
 		}
 	};
