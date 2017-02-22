@@ -311,7 +311,7 @@ function getJSON(url, callback = null) {
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
 	xhr.onload = function() {
-		if (xhr.status == 200) {
+		if (xhr.readyState = 4 && xhr.status == 200) {
 			if(callback) {
 				callback(null, xhr.response);
 			} else {
