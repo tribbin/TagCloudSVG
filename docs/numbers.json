@@ -1,3 +1,4 @@
+{ "numbers":
 	[
 		{ "label": "1", "class": ["C1","C7"] },
 		{ "label": "2", "class": ["C1"] },
@@ -30,3 +31,4 @@
 		{ "label": "29", "class": ["C6"] },
 		{ "label": "30", "class": ["C6"] }
 	]
+}
