@@ -316,7 +316,7 @@ function getJSON(url, callback = null) {
 				if(callback) {
 					callback(null, xhr.response);
 				} else {
-					xhr.response;
+					return xhr.response;
 				}
 			} else {
 				if(callback) {
