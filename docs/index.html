@@ -109,14 +109,18 @@
 
 		<script>
 
+			// Make cloud-data globally available.
+			var numbers;
+
 			// Example tagcloud data.
 			getJSON('numbers.json',
 				function(err, data) {
-					// Create SVG elements in HTML.
-					makeTagCloudSVG(data.numbers);
+					numbers = data.numbers;
 				}
 			);
 
+			// Create SVG elements in HTML.
+			makeTagCloudSVG(data.numbers);
 
 			// This function must be within the global scope for nextFrame() to call it.
 			function animate() {
