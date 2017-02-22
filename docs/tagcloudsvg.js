@@ -310,8 +310,8 @@ function getJSON(url, callback = null) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
-	xhr.onload = function() {
-		if (xhr.readyState = 4) {
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
 			if (xhr.status == 200) {
 				if(callback) {
 					callback(null, xhr.response);
