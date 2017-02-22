@@ -308,8 +308,7 @@ function nextFrame() {
 // Without a provided callback, the JSON data is returned. If the retrieval fails, null is returned.
 function getJSON(url, callback = null) {
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url, true);
-	xhr.responseType = 'json';
+	xhr.open('GET', url, false);
 	xhr.onload = function() {
 		if (xhr.status == 200) {
 			if(callback) {
