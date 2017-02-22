@@ -112,12 +112,11 @@
 			// Example tagcloud data.
 			getJSON('numbers.json',
 				function(err, data) {
-					numbers = data.numbers;
+					// Create SVG elements in HTML.
+					makeTagCloudSVG(numbers);
 				}
 			);
 
-			// Create SVG elements in HTML.
-			makeTagCloudSVG(numbers);
 
 			// This function must be within the global scope for nextFrame() to call it.
 			function animate() {
