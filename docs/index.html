@@ -110,7 +110,11 @@
 		<script>
 
 			// Example tagcloud data.
-			var numbers = getJSON('numbers.json');
+			getJSON('numbers.json',
+				function(err, data) {
+					numbers = data.numbers;
+				}
+			);
 
 			// Create SVG elements in HTML.
 			makeTagCloudSVG(numbers);
