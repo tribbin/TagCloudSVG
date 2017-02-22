@@ -113,7 +113,7 @@
 			getJSON('numbers.json',
 				function(err, data) {
 					// Create SVG elements in HTML.
-					makeTagCloudSVG(numbers);
+					makeTagCloudSVG(data.numbers);
 				}
 			);
 
