@@ -54,12 +54,18 @@ var cloud;
 // Add 'node' array with [x,y,z] coordinates to all tags in JSON data.
 function addNodesToTags() {
 
+	var tagsWithoutNodes = cloud.filter(
+		function(tag) {
+			return (!tag.node);
+		}
+	)
+	console.log(tagsWithoutNodes);
 	// Create semi-equally spread points on a sphere for all tags in the cloud.
-	var points = PointsOnSphere(cloud.length);
+	var points = PointsOnSphere(tagsWithoutNodes.length);
 
 	// Bind these points as node-coordinates to the tags.
-	for (var i = 0; i < cloud.length; i++) {
-		cloud[i].node = points[i];
+	for (var i = 0; i < tagsWithoutNodes.length; i++) {
+		tagsWithoutNodes[i].node = points[i];
 	}
 
 }
@@ -303,7 +309,7 @@ function nextFrame() {
    Code under this line is supporting code to make your life easier.
    =================================================================== */
 
-// Get JSON from an URL. The callback parameter is optional.
+// Get JSON from an URL. The callback parameter is optional, but necessary for actions that must be executed after JSON-retrieval.
 // The callback-function must have two parameters: error (null if there is no error) and the data (if there is an error).
 // Without a provided callback, the JSON data is returned. If the retrieval fails, null is returned.
 function getJSON(url, callback = null) {
