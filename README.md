@@ -107,36 +107,60 @@ var cloud = [
 * Every tag's element will be given the 'tag' CSS class.
 * Every tag will be given the 'element' property, which is the tag's element.
 
-#### "label": "value"
+#### Text-element content
+```
+"label": "value"
+```
 
 * The label property will set the text inside your SVG text-element.
 
-#### "id": "value"
+#### CSS id
+```
+"id": "value"
+```
 
 * The id property will set the tag's CSS unique identity.
 
-#### "link": "http://example.com/"
+#### Clickable links
+```
+"link": "http://example.com/"
+```
 
 * The link property wraps a clickable link around your tag to the specified URL.
 
-#### "class": ["value","value", ... ]
+#### Additional CSS classes
+```
+"class": ["value","value", ... ]
+```
 
 * The class array will set the tag's CSS classes.
 
-##### "class": ["inanimate"]
+##### Inanimate tags
+```
+"class": ["inanimate"]
+```
 
 * The inanimate class will fix the position and size of the tag.
 
-#### "type": "value"
+#### Alternative SVG-element types
+```
+"type": "value"
+```
 
 * Without a pre-defined 'type' property, there will be created an SVG Text-element for the tag.
 * You can pre-define a different SVG Element-type; like rect, ellipse, svg, image, ...
 
-#### "attributes": [{"property": "value"},{"property": "value"}, ... ]
+#### Pre-defined SVG-object attributes
+```
+"attributes": [{"property": "value"},{"property": "value"}, ... ]
+```
 
 * The array of properties will be set as element-attributes with their corresponding values.
 
-#### (Not yet implemented) "node": [x,y,z]
+#### Pre-defined node coordinates
+```
+"node": [x,y,z]
+```
 
 * Without a pre-defined 'node' property, the tag will be given a coordination-node in the cloud.
 * If you pre-define the node coordinates, you can choose the location yourself. Common values for x, y and z are between -1 and 1.
