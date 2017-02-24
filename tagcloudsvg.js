@@ -310,18 +310,20 @@ function getJSON(url, callback = null) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.responseType = 'json';
-	xhr.onload = function() {
-		if (xhr.status == 200) {
-			if(callback) {
-				callback(null, xhr.response);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			if (xhr.status == 200) {
+				if(callback) {
+					callback(null, xhr.response);
+				} else {
+					return xhr.response;
+				}
 			} else {
-				return xhr.response;
-			}
-		} else {
-			if(callback) {
-				callback("JSON could not be retrieved.");
-			} else {
-				return null;
+				if(callback) {
+					callback("JSON could not be retrieved.", null);
+				} else {
+					return null;
+				}
 			}
 		}
 	};
@@ -330,7 +332,7 @@ function getJSON(url, callback = null) {
 		return null;
 	}
 	xhr.send();
-};
+}
 
 
 /* ===================================================================
