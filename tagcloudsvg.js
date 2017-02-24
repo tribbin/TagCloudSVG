@@ -67,7 +67,7 @@ function addNodesToTags() {
 			return (!tag.node);
 		}
 	)
-	console.log(tagsWithoutNodes);
+
 	// Create semi-equally spread points on a sphere for all tags in the cloud.
 	var points = PointsOnSphere(tagsWithoutNodes.length);
 
