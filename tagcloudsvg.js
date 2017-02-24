@@ -15,8 +15,8 @@ var boundry = 540;
 // Fixed SVG font-size for stepless scaling.
 var tagFontSize = 80;
 
-// The interval in milliseconds for re-stacking the text elements.
-var sortInterval = 1000;
+// Number of milliseconds between re-stacking the tags' elements.
+var sortInterval = 500;
 
 /* ===================================================================
    Code under this line are global drawing and perspective values.
@@ -31,6 +31,9 @@ var rotx = roty = rotz = 0;
 // Every sortInterval the sortPending will be set to true.
 var sortPending = true;
 
+// Position to sort from.
+var sortIndex = null;
+
 // This variable will be updated to Date.now() before every rendered
 // frame for timing a constant frame-rate.
 var lastAnimate = 0;
@@ -39,12 +42,17 @@ var lastAnimate = 0;
    Code under this line is for fast access to data and elements.
    =================================================================== */
 
+// Sorted items per frame: tags.length/(sortInterval/(1000/fps))
+var sipf;
+
 // TagCloudSVG DOM-element.
 var svg;
 
 // TagCloud JSON-data.
 var cloud;
 
+// All elements with class 'tag' in svg.
+var tags;
 
 /* ===================================================================
    Code under this line are working functions.
@@ -149,24 +157,41 @@ function rotateAndZoom(dx,dy,dz,dzoom) {
 }
 
 // Sort the tags' SVG text-elements and restack them for correctly rendering overlapping tags.
-function sortTags() {
+function sortTags(start,end) {
 
-	// Get the tags' SVG text-elements.
-	var tags = Array.prototype.slice.call(document.getElementsByClassName('tag'));
+	var done = [];
 
-	// Sort them by opacity; the opacity is in direct relation with the perspective's Z-axis distance.
-	tags.sort(
-		function(a, b) {
-			// Use defined opacity; not the computer-calculated opacity.
-			return a.style.opacity > b.style.opacity;
-		}
-	);
-
-	// Re-append the tags' SVG text-elements in order. Appended DOM-nodes are not copied, but moved.
-	for (var i=0; i<tags.length; i++) {
-		svg.appendChild(tags[i]);
+	// If no sortingi range is specified; sort everything.
+	if(end >= tags.length-1) {
+		// Sort elements by opacity; the opacity is in direct relation with the perspective's Z-axis distance.
+		tags.sort(
+			function(a, b) {
+				// Use defined opacity; not the computer-calculated opacity.
+				return a.style.opacity > b.style.opacity;
+			}
+		);
+		end = tags.length-1;
+		svg.appendChild(tags[end--]);
 	}
 
+	// Re-append the tags' SVG text-elements in order. Appended DOM-nodes are not copied, but moved.
+	for (var i = end; i >= start && i > -1; i--) {
+		svg.insertBefore(tags[i],tags[i+1]);
+	}
+
+	if (start <= 0) {
+		sortPending = false;
+		sortIndex = null;
+	} else {
+		sortIndex = start-1;
+	}
+}
+
+function sortTagsFromIndex() {
+	if (!sortIndex) {
+		sortIndex = tags.length-1;
+	}
+	sortTags(sortIndex-(sipf>1?sipf-1:0), sortIndex);
 }
 
 // This function adds a single SVG text-element (representing a tag) to the SVG (representing the cloud).
@@ -236,6 +261,10 @@ function addTextToSVG(tag, hide = false) {
 		tag.element = anchor;
 	}
 
+	tags = Array.prototype.slice.call(svg.getElementsByClassName('tag'));
+
+	// Recalculate the number of sorted items per frame.
+	sipf = Math.floor(tags.length/(sortInterval/(1000/fps)));
 }
 
 // Make tagcloud SVG
@@ -289,12 +318,10 @@ function nextFrame() {
 	if (delta > 1000/fps) {
 		lastAnimate = now - (delta % 1000/fps);
 		animate();
-	}
-
-	// Sort the SVG DOM-elements according to perspective Z-axis.
-	if(sortPending) {
-		sortTags();
-		sortPending = false;
+		// Sort the SVG DOM-elements according to perspective Z-axis.
+		if(sortPending) {
+			sortTagsFromIndex();
+		}
 	}
 
 }
@@ -308,7 +335,7 @@ function nextFrame() {
 // Without a provided callback, the JSON data is returned. If the retrieval fails, null is returned.
 function getJSON(url, callback = null) {
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url, true);
+	xhr.open('GET', url, (callback));
 	xhr.responseType = 'json';
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
