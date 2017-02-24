@@ -114,12 +114,14 @@
 
 			// Example tagcloud data.
 			getJSON('numbers.json',
-				function(err, data) {
-					if (!err) {
+				function(error, data) {
+					if (!error) {
 						numbers = data.numbers;
 						// Create SVG elements in HTML.
 						makeTagCloudSVG(numbers);
 						startClock();
+					} else {
+						console.log(error);
 					}
 				}
 			);
