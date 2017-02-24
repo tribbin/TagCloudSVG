@@ -320,7 +320,7 @@ function getJSON(url, callback = null) {
 				}
 			} else {
 				if(callback) {
-					callback("JSON could not be retrieved.");
+					callback("JSON could not be retrieved.", null);
 				} else {
 					return null;
 				}

@@ -115,14 +115,12 @@
 			// Example tagcloud data.
 			getJSON('numbers.json',
 				function(err, data) {
-					numbers = data.numbers;
-					// Create SVG elements in HTML.
-					makeTagCloudSVG(numbers);
-					// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
-					var length = numbers.push(
-						{ "class": ["clock", "inanimate"], "node": [0,0,0.25] }
-					);
-					startClock();
+					if (!err) {
+						numbers = data.numbers;
+						// Create SVG elements in HTML.
+						makeTagCloudSVG(numbers);
+						startClock();
+					}
 				}
 			);
 
@@ -147,17 +145,23 @@
 			}
 
 			function startClock() {
+
+				// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
+				numbers.push(
+					{ "class": ["clock", "inanimate"], "node": [0,0,0.25] }
+				);
+
 				// Create text SVG element. The boolean 'true' specifies that it is initially hidden.
-				addTextToSVG(numbers[length-1], true);
+				addTextToSVG(numbers[numbers.length-1], true);
 
 				// Do this once ...
 				updateClock();
 
-				// And repeat every 1000ms.
-				setInterval(updateClock, 1000);
-
 				// The clock's time is set. The opacity is set to 0 by addTextToSVG(..,true) and will be corrected after positioning by rotateAndZoom().
 				document.getElementsByClassName('clock')[0].style.visibility = 'visible';
+
+				// And repeat every 1000ms.
+				setInterval(updateClock, 1000);
 			}
 
 		</script>
