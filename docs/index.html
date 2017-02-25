@@ -110,15 +110,13 @@
 		<script>
 
 			// Make cloud-data globally available.
-			var numbers;
+			var tagcloudsvg;
 
 			// Example tagcloud data.
 			getJSON('numbers.json',
 				function(error, data) {
 					if (!error) {
-						numbers = data.numbers;
-						// Create SVG elements in HTML.
-						makeTagCloudSVG(numbers);
+						tagcloudsvg = new TagCloudSVG(data.numbers);
 						startClock();
 					} else {
 						console.log(error);
@@ -126,11 +124,6 @@
 				}
 			);
 
-
-			// This function must be within the global scope for nextFrame() to call it.
-			function animate() {
-				rotateAndZoom(0.01,0.008,0.005,0.01);
-			}
 
 			// Simple function to get the time in human-readable form.
 			function getClockTime() {
@@ -149,12 +142,12 @@
 			function startClock() {
 
 				// Add inanimate clock tag with 'node' array for X, Y and Z coordinates.
-				numbers.push(
+				tagcloudsvg.cloud.push(
 					{ "class": ["clock", "inanimate"], "node": [0,0,0.25] }
 				);
 
 				// Create text SVG element. The boolean 'true' specifies that it is initially hidden.
-				addTextToSVG(numbers[numbers.length-1], true);
+				tagcloudsvg.addElementToSVG(tagcloudsvg.cloud[tagcloudsvg.cloud.length-1], true);
 
 				// Do this once ...
 				updateClock();

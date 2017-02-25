@@ -109,12 +109,7 @@
     			];
 
 			// Create SVG elements in HTML.
-			makeTagCloudSVG(numbers);
-
-			// This function must be within the global scope for nextFrame() to call it.
-			function animate() {
-				rotateAndZoom(0.01,0.008,0.005,0.01);
-			}
+			var svg = new TagCloudSVG(numbers);
 
 			// Simple function to get the time in human-readable form.
 			function getClockTime() {
