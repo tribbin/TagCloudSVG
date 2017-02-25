@@ -16,9 +16,9 @@ These are the necessary steps to build a TagCloudSVG.
 ```html
   <script src='tagcloudsvg.js' type='text/javascript'></script>
 ```
-* Include an SVG-element in the body of your webpage with ID 'tagcloudsvg':
+* Include an SVG-element in the body of your webpage with class 'tagcloudsvg':
 ```html
-  <svg id='tagcloudsvg'></svg>
+  <svg class='tagcloudsvg'></svg>
 ```
 * Build a JSON array. All fields are optional, but 'label' will be used as the tag's element-text and 'class' (an array!) will be set as the tag's CSS classes.
 ```html
@@ -38,18 +38,10 @@ These are the necessary steps to build a TagCloudSVG.
     ];
   </script>
 ```
-* Write a function called animate() with no arguments that is being called for every animation-frame:
+* Provide the JSON when creating TagCloudSVG:
 ```html
   <script>
-    function animate() {
-      rotateAndZoom(0.01,0.008,0.005,0.01);
-    }
-  </script>
-```
-* Provide the JSON when calling makeTagCloudSVG():
-```html
-  <script>
-    makeTagCloudSVG(clouds);
+    new TagCloudSVG(clouds);
   </script>
 ```
 * Optionally use CSS to style the cloud and tags:
