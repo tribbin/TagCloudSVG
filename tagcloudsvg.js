@@ -2,57 +2,39 @@
    Author: Robin van Westrenen-Broekmans
    =================================================================== */
 
-/* ===================================================================
-   Code under this line are configuration variables.
-   =================================================================== */
-
-// Targeted number of frames per second for rendering.
-var fps = 30;
-
-// SVG cloud size (radius from center) reference for projecting nodes.
-var boundry = 540;
-
-// Fixed SVG font-size for stepless scaling.
-var tagFontSize = 80;
-
-// Number of milliseconds between re-stacking the tags' elements.
-var sortInterval = 500;
+var instance = [];	// Array of instances that can run in parallel.
 
 /* ===================================================================
-   Code under this line are global drawing and perspective values.
+   Code under this line are default configuration variables.
    =================================================================== */
 
-// Initial Math.sin(zoom) Z-axis translation value.
-var zoom = 0;
+var instance['default'].config = {
+	"fps": 30,		// Targeted number of frames per second for rendering.
+	"boundry": 500,		// SVG cloud size (radius from center) reference for projecting nodes.
+	"tagFontSize": 80,	// Fixed SVG font-size for stepless scaling.
+	"sortInterval": 500,	// Number of milliseconds between re-stacking the tags' elements.
+};
 
-// Initial SVG node perspective variables; X, Y and Z rotation.
-var rotx = roty = rotz = 0;
+/* ===================================================================
+   Code under this line are default initial drawing and perspective values.
+   =================================================================== */
 
-// Every sortInterval the sortPending will be set to true.
-var sortPending = true;
-
-// Position to sort from.
-var sortIndex = null;
-
-// This variable will be updated to Date.now() before every rendered
-// frame for timing a constant frame-rate.
-var lastAnimate = 0;
+var instance['default'].drawing = {
+	"zoom": 0,				// Initial Math.sin(zoom) Z-axis translation value.
+	"rotx": 0, "roty": 0, "rotz": 0,	// Initial SVG node perspective variables; X, Y and Z rotation.
+	"sortPending": true,			// Every sortInterval the sortPending will be set to true.
+	"sortIndex": null,			// Position to sort from.
+	"lastAnimate": 0,			// This variable will be updated to Date.now() before every rendered frame for timing a constant frame-rate.
+	"sipf": null,				// Sorted items per frame: tags.length/(sortInterval/(1000/fps)); will be updated when tags are added to the cloud.
+};
 
 /* ===================================================================
    Code under this line is for fast access to data and elements.
    =================================================================== */
 
-// Sorted items per frame: tags.length/(sortInterval/(1000/fps))
-var sipf;
-
-// TagCloudSVG DOM-element.
-var svg;
-
-// TagCloud JSON-data.
-var cloud;
-
-// All elements with class 'tag' in svg.
-var tags;
+instance['default'].svg = null;	// TagCloudSVG DOM-element.
+instance['default'].cloud = null;	// TagCloud JSON-data.
+instance['default'].tags = null;	// All elements with class 'tag' in svg.
 
 /* ===================================================================
    Code under this line are working functions.
