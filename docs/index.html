@@ -153,7 +153,7 @@
 				updateClock();
 
 				// The clock's time is set. The opacity is set to 0 by addTextToSVG(..,true) and will be corrected after positioning by rotateAndZoom().
-				document.getElementsByClassName('clock')[0].style.visibility = 'visible';
+				document.getElementsByClassName('clock')[0].style.display = 'initial';
 
 				// And repeat every 1000ms.
 				setInterval(updateClock, 1000);
