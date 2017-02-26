@@ -29,7 +29,7 @@
 				alignment-baseline: middle;
 				text-rendering: optimizeSpeed;
 			}
-			#clock {
+			.clock {
 				fill: white;
 				font-size: 8em;
 			}
@@ -105,7 +105,7 @@
 					{ "type": "image", "attributes": [{"x": -100},{"y": -100},{"width": 200},{"height": 200},{"href": "img/satellite.svg"}], "node": [1,1,1]},
 					{ "type": "image", "attributes": [{"x": -50},{"y": -50},{"width": 100},{"height": 100},{"href": "img/chrome.svg"}]},
 					{ "type": "image", "attributes": [{"x": -50},{"y": -50},{"width": 100},{"height": 100},{"href": "img/tribbin.jpg"}]},
-					{ "label": getClockTime(), "id": "clock", "class": ["inanimate"], "node": [0,0,0] }
+					{ "label": getClockTime(), "class": ["clock","inanimate"], "node": [0,0,0] }
     			];
     			var numbers2 = [
 					{ "label": "1", "class": ["C1","C7"] },
@@ -145,7 +145,7 @@
 					{ "type": "image", "attributes": [{"x": -100},{"y": -100},{"width": 200},{"height": 200},{"href": "img/satellite.svg"}], "node": [1,1,1]},
 					{ "type": "image", "attributes": [{"x": -50},{"y": -50},{"width": 100},{"height": 100},{"href": "img/chrome.svg"}]},
 					{ "type": "image", "attributes": [{"x": -50},{"y": -50},{"width": 100},{"height": 100},{"href": "img/tribbin.jpg"}]},
-					{ "label": getClockTime(), "id": "clock", "class": ["inanimate"], "node": [0,0,0] }
+					{ "label": getClockTime(), "class": ["clock","inanimate"], "node": [0,0,0] }
     			];
 
 			// Create SVG elements in HTML.
@@ -171,7 +171,10 @@
 
 			// Change the text of the clock tag.
 			function updateClock() {
-				document.getElementById('clock').innerHTML = getClockTime();
+				var clocks = document.getElementsByClassName('clock');
+				for (var i = 0; i < clocks.length; i++) {
+					clocks[i].innerHTML = getClockTime();
+				}
 			}
 
 			// And repeat every 1000ms.
