@@ -45,8 +45,17 @@ class TagCloudSVG {
 	// Make new instance of TagCloudSVG, providing optional cloud-data and CSS-id.
 	constructor(cloud = null, id = null) {
 
+		this.cloud = [];
+
 		// Set the Object's cloud-data that is provided as parameter.
-		this.cloud = cloud;
+		if (cloud) {
+			this.cloud = cloud;
+		} else {
+			for (var i = 0; i < 50; i++) {
+				var tag = {"label": i};
+				this.cloud.push(tag);
+			}
+		}
 
 		/* ===================================================================
 		 * Code under this line are default configuration variables.
@@ -66,7 +75,7 @@ class TagCloudSVG {
 		this.animate = function() {
 			this.rotateAndZoom(0.01,0.008,0.005,0.01);
 		};
-		
+
 		/* ===================================================================
 		   Code under this line are working-functions and -variables.
 		   There should be no need to alter this code.
@@ -89,7 +98,7 @@ class TagCloudSVG {
 		} else {
 			this.svg = document.getElementsByClassName('tagcloudsvg')[0] // No 'name' parameter value? Get the first tagcloudsvg.
 			|| document.getElementsByTagName('svg')[0] // No class 'tagcloudsvg' found? Get the first SVG element.
-			|| document.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "svg")); // No SVG element found? Create one.
+			|| document.body.appendChild(document.createElementNS("http://www.w3.org/2000/svg", "svg")); // No SVG element found? Create one.
 		}
 
 		// Set XML NameSpace to SVG standard.
@@ -105,7 +114,7 @@ class TagCloudSVG {
 
 		// Create SVG elements for all tags.
 		for (var i = 0; i < this.cloud.length; i++) {
-			this.addElement(cloud[i]);
+			this.addElement(this.cloud[i]);
 		}
 
 		// Periodically call for re-ordering of the SVG-elements to avoid rendering-mistakes of overlapping elements.
